@@ -5,12 +5,23 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // state：维护的数据，一般维护成树的结构。
 // action：一个普通对象，存储reducer的传入参数，一般描述对state的更新类型。
-const f1 = (state = 100, action = 1) => { 
+//reducer f1实现state加减action传入的值
+const f1 = (state = 100, action) => { 
   switch (action.type) {
     case 'add':
       return state + action.value;
     case 'sub':
       return state - action.value;
+    default:
+      return state;
+  }
+};
+
+// reducer f2实现state中的字符串接上action传入的字符串
+const f2 = (state = "", action) => {
+  switch (action.type) {
+    case 'concat':
+      return state + action.character;
     default:
       return state;
   }
