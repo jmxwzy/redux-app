@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import App from './components/app';
 
 // state：维护的数据，一般维护成树的结构。
 // action：一个普通对象，存储reducer的传入参数，一般描述对state的更新类型。
@@ -19,7 +21,7 @@ const f1 = (state = 100, action) => {
 };
 
 // reducer f2实现state中的字符串接上action传入的字符串
-const f2 = (state = "", action) => {
+const f2 = (state = "!", action) => {
   switch (action.type) {
     case 'concat':
       return state + action.character;
@@ -36,8 +38,8 @@ const f2 = (state = "", action) => {
 //   }
 // };
 const f3 = combineReducers({
-  f1: f1,
-  f2: f2,
+  number: f1,
+  string: f2,
 });
 
 const store = configureStore({
@@ -60,7 +62,7 @@ console.log("final: ", store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    
-  </React.StrictMode>
+  <Provider store={store}>
+    <App></App>
+  </Provider>
 );
